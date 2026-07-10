@@ -113,7 +113,7 @@ let cat="All",sel=null;
 function enc(p){return p.split('/').map(encodeURIComponent).join('/')}
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function folderName(e){if(e.name)return e.name;if(e.imgs&&e.imgs[0]){var s=e.imgs[0].split('/')[1];return s.replace(/^\d+-/,'').replace(/^(19|20)\d\d_/,'');}return e.title;}
-function list(){return E.filter(e=>(cat==="All"||e.cat===cat)&&(e.imgs.length||e.vids.length||e.ig))}
+function list(){return E.filter(e=>(cat==="All"||e.cat===cat)&&(e.imgs.length||e.vids.length||e.ig||(e.videos&&e.videos.length)))}
 function renderCats(){document.getElementById('cats').innerHTML=CATS.map(x=>`<span class="${x===cat?'on':''}" onclick="setCat('${x}')">${x}</span>`).join('')}
 function setCat(x){cat=x;sel=list.call?null:null;sel=null;render();if(!sel){sel=list()[0];render()}}
 function roleOf(e){var s=(e.imgs&&e.imgs[0])?e.imgs[0].split('/')[1]:(e.title||'');var m=s.match(/(Creative-Director&Designer|Creative-Director|Award-Artist|Gallerist|Writer|Editor|Artist)/i);return m?m[1].replace(/&Designer/i,''):'';}
