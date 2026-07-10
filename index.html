@@ -83,7 +83,7 @@ body.pg #page{display:flex}
 .pageh{font-size:20px;font-weight:600;margin-bottom:16px}
 .pagebody{font-size:13px;line-height:1.7;max-width:600px}.pagebody p{margin:0 0 13px}
 @media(max-width:820px){#finder,#page{inset:34px 8px 8px 8px}.cols{overflow-x:auto}}
-.win{display:inline-flex;gap:7px;margin-right:6px;align-items:center}.win i{width:11px;height:11px;border-radius:50%;display:inline-block}.win .red{background:#ff5f57;cursor:pointer}.win .yl{background:#febc2e}.win .gr{background:#28c840}.cols{position:relative}.rzh{position:absolute;top:0;bottom:0;width:8px;margin-left:-4px;cursor:col-resize;z-index:6}.pdflink{display:inline-block;margin:0 0 16px;font-size:var(--fs,11px);color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:6px 11px;border-radius:5px;letter-spacing:.02em}.pdflink:hover{background:var(--sel)}</style></head><body>
+.win{display:inline-flex;gap:7px;margin-right:6px;align-items:center}.win i{width:11px;height:11px;border-radius:50%;display:inline-block}.win .red{background:#ff5f57;cursor:pointer}.win .yl{background:#febc2e}.win .gr{background:#28c840}.cols{position:relative}.rzh{position:absolute;top:0;bottom:0;width:8px;margin-left:-4px;cursor:col-resize;z-index:6}.pdflink{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--soft)}.pdflink:hover{text-decoration-color:var(--ink)}</style></head><body>
 <div class="menubar"><span class="nm" style="cursor:pointer" onclick="home()">Secil Alkis</span>
 <span class="mi" onclick="openF()">The Mind</span>
 <span class="mi" onclick="page('mind')">Intro</span>
@@ -126,9 +126,9 @@ function render(){renderCats();const cols=document.getElementById('cols');cols.i
  makeRZ();document.getElementById('path').textContent="the mind"+(sel?"   ›   "+esc(sel.title):"");if(window.instgrm&&window.instgrm.Embeds)window.instgrm.Embeds.process()}
 function fld(k,v){return v?`<div class="fld"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`:""}
 function mid(e){const d=document.createElement('div');d.className="col mid";d.id="cM";d.style.flex="0 0 "+W.m+"px";d.style.minWidth=W.m+"px";
- d.innerHTML=`<div class="artist">${esc(e.title)}</div>`+fld("Who",e.who)+fld("What",e.what)+fld("Why",e.why)+fld("Year",e.year);return d}
+ d.innerHTML=`<div class="artist">${esc(e.title)}</div>`+fld("Who",e.who)+fld("What",e.what)+fld("Why",e.why)+fld("Year",e.year)+(e.pdf?'<div class="fld"><div class="k">PDF</div><div class="v"><a class="pdflink" href="'+e.pdf+'" target="_blank" rel="noopener">Read the full issue</a></div></div>':'');return d}
 let GAL=[],GI=0;
-function media(e){const d=document.createElement('div');d.className="col media";let h="";if(e.pdf){h+='<a class="pdflink" href="'+e.pdf+'" target="_blank" rel="noopener">Read the full issue — PDF</a>';}if(e.ig){h+='<blockquote class="instagram-media" data-instgrm-permalink="'+e.ig+'" data-instgrm-version="14" style="max-width:540px;width:100%;margin:0 0 14px"></blockquote>';}
+function media(e){const d=document.createElement('div');d.className="col media";let h="";if(e.ig){h+='<blockquote class="instagram-media" data-instgrm-permalink="'+e.ig+'" data-instgrm-version="14" style="max-width:540px;width:100%;margin:0 0 14px"></blockquote>';}
  const t=(e.type||'').toLowerCase();const set=true;
  e.vids.forEach(v=>{h+=`<video src="${enc(v)}" controls style="width:100%;margin-bottom:12px"></video>`});
  if(e.imgs.length){
