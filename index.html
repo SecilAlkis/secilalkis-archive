@@ -148,10 +148,10 @@ let GAL=[],GI=0;
 function media(e){const d=document.createElement('div');d.className="col media";let h="";if(e.ig){h+='<blockquote class="instagram-media" data-instgrm-permalink="'+e.ig+'" data-instgrm-version="14" style="max-width:540px;width:100%;margin:0 0 14px"></blockquote>';}
  const t=(e.type||'').toLowerCase();const set=true;
  e.vids.forEach(v=>{h+=`<video src="${enc(v)}" controls style="width:100%;margin-bottom:12px"></video>`});
- if(e.videos&&e.videos.length){h+='<div class="vidsec" id="vidsec"><div class="vidh">Videos</div><div class="vgrid">'+e.videos.map(function(v){var th=v.s==='y'?'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg':(v.th||'');return '<div class="vtile" onclick="playVid(this,\''+v.s+'\',\''+v.id+'\')">'+(th?'<img src="'+th+'" loading="lazy" alt="video">':'<div class="vph"></div>')+'<span class="vpl">\u25B6</span></div>';}).join('')+'</div></div>';}
  if(e.imgs.length){
   if(set){h+=`<div class="pile">`+e.imgs.map(im=>`<img src="${enc(im)}" onclick="openLB(this)" loading="lazy" alt="${esc(e.title)}, Secil Alkis">`).join('')+`</div>`}
   else{GAL=e.imgs;GI=0;h+=`<div class="stage"><img id="big" src="${enc(e.imgs[0])}" onclick="openLB(this)" alt="${esc(e.title)}, Secil Alkis">`+(e.imgs.length>1?`<div class="arr l" onclick="step(-1)">‹</div><div class="arr r" onclick="step(1)">›</div>`:``)+`</div>`}}
+ if(e.videos&&e.videos.length){h+='<div class="vidsec" id="vidsec"><div class="vidh">Videos</div><div class="vgrid">'+e.videos.map(function(v){var th=v.s==='y'?'https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg':(v.th||'');return '<div class="vtile" onclick="playVid(this,\''+v.s+'\',\''+v.id+'\')">'+(th?'<img src="'+th+'" loading="lazy" alt="video">':'<div class="vph"></div>')+'<span class="vpl">\u25B6</span></div>';}).join('')+'</div></div>';}
  if(e.bodyp&&e.bodyp.length){h+=`<div class="prlbl">${esc(headline(e))}</div><div class="press ${t==='interview'?'qa':''}">`+e.bodyp.map(p=>`<p class="${/^(Q\s*:|S\.?\s*A\.?\s*:|Secil\s+Alkis\s*:|Warhola\s*:|W\s*:)/i.test(p)?'q':''}">${esc(p)}</p>`).join('')+`</div>`}
  d.innerHTML=h;return d}
 function step(dr){if(!GAL.length)return;GI=(GI+dr+GAL.length)%GAL.length;var b=document.getElementById('big');if(b)b.src=enc(GAL[GI])}
