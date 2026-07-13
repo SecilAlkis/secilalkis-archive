@@ -73,7 +73,7 @@ body.about #about{display:block}
 #dock{gap:16px}
 .app{transition:transform .15s ease}
 .app:hover{transform:translateY(-8px) scale(1.12)}
-.pile{column-count:2;column-gap:8px}.pile img{width:100%;height:auto;margin:0 0 8px;display:block;border:none}
+.pile{column-count:2;column-gap:8px}.pile img{width:100%;height:auto;margin:0;padding-bottom:8px;display:block;border:none;break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid}
 .press p.q{font-weight:700;color:#111}
 .clist a{display:block;padding:10px 0;border-top:.5px solid var(--line);line-height:1.35;color:var(--ink);text-decoration:none}
 .clist a .k{display:block;color:var(--soft);font-size:var(--lab);margin-bottom:3px}.clist a .v{display:block}
@@ -167,7 +167,7 @@ function paras(t){return (t||'').split(/\n\n+/).map(s=>s.trim()).filter(Boolean)
 function fmtP(p){var b=esc(p).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/&lt;(\/?)([bi])&gt;/g,'<$1$2>');return /^<b>[^<]*<\/b>$/.test(b)||/^<strong>[^<]*<\/strong>$/.test(b)?'<p class="sech">'+b+'</p>':'<p>'+b+'</p>';}
 function page(w){CURPAGE=w;resetGeo(document.getElementById('page'));document.body.classList.remove('in');document.body.classList.add('pg');
  const t={mind:'Intro',about:'About',contact:'Contact',manual:'Manual'}[w];
- document.getElementById('ppath').textContent=t;let h=(w==='mind'?'':`<div class="pageh">${t}</div>`);
+ document.getElementById('ppath').textContent=t;let h=(w==='contact'?`<div class="pageh">${t}</div>`:'');
  if(w==='contact'){h+=`<div class="pagebody clist">`+CONTACT.map(c=>`<a href="${c[2]}" target="_blank"><span class="k">${c[0]}</span><span class="v">${c[1]}</span></a>`).join('')+`</div>`}
  else{const s=w==='about'?ABOUT:w==='manual'?MANUAL:MIND;h+=`<div class="pagebody">`+paras(s).map(fmtP).join('')+`</div>`}
  document.getElementById('pc').innerHTML=h}
