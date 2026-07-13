@@ -190,4 +190,25 @@ function addRZ(cols,key,x){var h=document.createElement('div');h.className='rzh'
  document.addEventListener('mouseup',function(){if(dn&&!mv)openF();dn=false;});f.addEventListener('touchstart',function(e){var t=e.touches[0];dn=true;mv=false;sx=t.clientX;sy=t.clientY;var r=f.getBoundingClientRect(),p=f.offsetParent.getBoundingClientRect();ox=r.left-p.left;oy=r.top-p.top;},{passive:true});document.addEventListener('touchmove',function(e){if(!dn)return;var t=e.touches[0];var dx=t.clientX-sx,dy=t.clientY-sy;if(!mv&&Math.abs(dx)+Math.abs(dy)>6)mv=true;if(mv){f.style.left=(ox+dx)+'px';f.style.top=(oy+dy)+'px';f.style.transform='none';e.preventDefault();}},{passive:false});f.addEventListener('touchend',function(e){if(dn&&!mv){e.preventDefault();openF();}dn=false;},{passive:false});})();
 
 renderCats();
+
+/* the mind folder drifts by itself, like a butterfly */
+(function(){var f=document.getElementById('theFolder');if(!f)return;
+var paused=false,hold=false,bx=null,by=null;
+function base(){var r=f.getBoundingClientRect(),p=f.offsetParent.getBoundingClientRect();bx=r.left-p.left;by=r.top-p.top;f.style.left=bx+'px';f.style.top=by+'px';f.style.transform='none';}
+f.addEventListener('mouseenter',function(){paused=true;});
+f.addEventListener('mouseleave',function(){if(!hold)paused=false;});
+['mousedown','touchstart'].forEach(function(ev){f.addEventListener(ev,function(){hold=true;paused=true;},{passive:true});});
+['mouseup','touchend'].forEach(function(ev){document.addEventListener(ev,function(){if(hold){hold=false;setTimeout(function(){base();paused=false;},500);}});});
+var t0=performance.now();
+function step(now){
+ if(bx===null)base();
+ var b=document.body.classList;
+ if(!paused&&!b.contains('in')&&!b.contains('pg')){
+  var t=(now-t0)/1000;
+  var dx=Math.sin(t*.21)*70+Math.sin(t*.53+1.7)*22+Math.sin(t*2.3)*3;
+  var dy=Math.sin(t*.17+.8)*40+Math.sin(t*.47+2.1)*16+Math.cos(t*2.7)*3;
+  f.style.left=(bx+dx)+'px';f.style.top=(by+dy)+'px';
+ }
+ requestAnimationFrame(step);}
+requestAnimationFrame(step);})();
 </script></body></html>
