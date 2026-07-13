@@ -75,8 +75,8 @@ body.about #about{display:block}
 .app:hover{transform:translateY(-8px) scale(1.12)}
 .pile{column-count:2;column-gap:8px}.pile img{width:100%;height:auto;margin:0 0 8px;display:block;border:none}
 .press p.q{font-weight:700;color:#111}
-.clist a{display:block;margin:0 0 11px;line-height:1.35;color:var(--ink);text-decoration:none}
-.clist a span{color:var(--soft);float:right}
+.clist a{display:block;padding:10px 0;border-top:.5px solid var(--line);line-height:1.35;color:var(--ink);text-decoration:none}
+.clist a .k{display:block;color:var(--soft);font-size:var(--lab);margin-bottom:3px}.clist a .v{display:block}
 #page{position:fixed;inset:60px 40px 40px 40px;background:#fff;border:.5px solid var(--line);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.18);display:none;flex-direction:column;z-index:30}
 body.pg #page{display:flex}
 #page .pc{overflow-y:auto;padding:38px 44px}
@@ -167,7 +167,7 @@ function paras(t){return (t||'').split(/\n\n+/).map(s=>s.trim()).filter(Boolean)
 function page(w){CURPAGE=w;resetGeo(document.getElementById('page'));document.body.classList.remove('in');document.body.classList.add('pg');
  const t={mind:'the mind',about:'About',contact:'Contact',manual:'Manual'}[w];
  document.getElementById('ppath').textContent=t;let h=`<div class="pageh">${t}</div>`;
- if(w==='contact'){h+=`<div class="pagebody clist">`+CONTACT.map(c=>`<a href="${c[2]}" target="_blank">${c[0]} <span>${c[1]}</span></a>`).join('')+`</div>`}
+ if(w==='contact'){h+=`<div class="pagebody clist">`+CONTACT.map(c=>`<a href="${c[2]}" target="_blank"><span class="k">${c[0]}</span><span class="v">${c[1]}</span></a>`).join('')+`</div>`}
  else{const s=w==='about'?ABOUT:w==='manual'?MANUAL:MIND;h+=`<div class="pagebody">`+paras(s).map(p=>`<p>${esc(p)}</p>`).join('')+`</div>`}
  document.getElementById('pc').innerHTML=h}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();home()}var on=document.getElementById('lb').classList.contains('on');if(on){if(e.key==='ArrowRight')slide(1);if(e.key==='ArrowLeft')slide(-1)}});
