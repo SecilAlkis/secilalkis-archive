@@ -75,7 +75,7 @@ body.about #about{display:block}
 .app:hover{transform:translateY(-8px) scale(1.12)}
 .pile{column-count:2;column-gap:8px}.pile img{width:100%;height:auto;margin:0 0 8px;display:block;border:none}
 .press p.q{font-weight:700;color:#111}
-.clist a{display:block;padding:9px 0;border-bottom:.5px solid var(--line);color:var(--ink);text-decoration:none}
+.clist a{display:block;margin:0 0 11px;line-height:1.35;color:var(--ink);text-decoration:none}
 .clist a span{color:var(--soft);float:right}
 #page{position:fixed;inset:60px 40px 40px 40px;background:#fff;border:.5px solid var(--line);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.18);display:none;flex-direction:column;z-index:30}
 body.pg #page{display:flex}
@@ -165,7 +165,7 @@ function openF(){resetGeo(document.getElementById('finder'));document.body.class
 function home(){resetGeo(document.getElementById('finder'));resetGeo(document.getElementById('page'));document.body.classList.remove('in','pg','about')}
 function paras(t){return (t||'').split(/\n\n+/).map(s=>s.trim()).filter(Boolean)}
 function page(w){CURPAGE=w;resetGeo(document.getElementById('page'));document.body.classList.remove('in');document.body.classList.add('pg');
- const t={mind:'The Mind',about:'About',contact:'Contact',manual:'Manual'}[w];
+ const t={mind:'the mind',about:'About',contact:'Contact',manual:'Manual'}[w];
  document.getElementById('ppath').textContent=t;let h=`<div class="pageh">${t}</div>`;
  if(w==='contact'){h+=`<div class="pagebody clist">`+CONTACT.map(c=>`<a href="${c[2]}" target="_blank">${c[0]} <span>${c[1]}</span></a>`).join('')+`</div>`}
  else{const s=w==='about'?ABOUT:w==='manual'?MANUAL:MIND;h+=`<div class="pagebody">`+paras(s).map(p=>`<p>${esc(p)}</p>`).join('')+`</div>`}
