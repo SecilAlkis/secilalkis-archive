@@ -226,12 +226,20 @@ var FS='precision mediump float;varying vec2 v;'+
 'mat2 rot(float a){float s=sin(a),c=cos(a);return mat2(c,-s,s,c);}'+
 'vec4 pick(sampler2D t,vec2 uv,vec4 r){vec2 iu=(uv-r.xy)/(r.zw-r.xy);'+
 'if(iu.x<0.||iu.x>1.||iu.y<0.||iu.y>1.)return vec4(0.);return texture2D(t,iu);}'+
+'float h2(vec2 q){return fract(sin(dot(q,vec2(127.1,311.7)))*43758.5453);}'+
+'float ns(vec2 q){vec2 i=floor(q),f=fract(q);f=f*f*(3.-2.*f);return mix(mix(h2(i),h2(i+vec2(1.,0.)),f.x),mix(h2(i+vec2(0.,1.)),h2(i+vec2(1.,1.)),f.x),f.y);}'+
 'void main(){'+
 'vec4 d=texture2D(DS,v);vec2 dv=vec2(d.r,d.g)-.5;'+
-'vec2 p1=v+rot(0.7853)*dv*0.6*F;'+
-'vec2 p2=v+rot(-2.356)*dv*0.6*(1.-F);'+
+'float m1=F*F*(0.10+0.12*ns(v*3.5));'+
+'float m2=(1.-F)*(1.-F)*(0.06+0.08*ns(v*3.5+9.));'+
+'vec2 p1=v+rot(0.7853)*dv*0.5*F;p1.y-=m1;'+
+'vec2 p2=v+rot(-2.356)*dv*0.5*(1.-F);p2.y+=m2;'+
 'vec4 c1=pick(T1,p1,R1);vec4 c2=pick(T2,p2,R2);'+
-'gl_FragColor=mix(c1,c2,F);}';
+'float mist=ns(v*150.)*.6+ns(v*45.)*.4;'+
+'c1.a*=1.-smoothstep(mist-.45,mist+.45,F*1.25);'+
+'c2.a*=smoothstep(mist-.45,mist+.45,F*1.25+.1);'+
+'vec4 o=c1+c2*(1.-c1.a);'+
+'gl_FragColor=o;}';
 function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;}
 var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);
 if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){fb();return;}
