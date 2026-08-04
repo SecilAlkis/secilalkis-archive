@@ -218,7 +218,7 @@ function step(now){
  var b=document.body.classList;
  if(!paused&&!b.contains('in')&&!b.contains('pg')){
   if(mode==='rest'){
-   f.style.left=(fx+(Math.random()-.5)*0.8)+'px';f.style.top=(fy+(Math.random()-.5)*0.8)+'px';
+   if(now-(f._jt||0)>170){f._jt=now;f.style.left=(fx+(Math.random()-.5)*0.9)+'px';f.style.top=(fy+(Math.random()-.5)*0.9)+'px';}
    if(now>=restUntil)startHop();
   } else {
    p+=0.045;
